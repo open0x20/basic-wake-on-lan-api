@@ -13,7 +13,8 @@ impl WakeOnLanHandler
 {
     pub async fn wake(item: web::Json<RequestDto>) -> HttpResponse
     {
-        let mac: MacAddress = MacAddress::from_string_slice(item.0.mac_address.as_str()).unwrap();
+        let mac_address_str: &str = item.0.mac_address.as_str();
+        let mac: MacAddress = MacAddress::from_string_slice(&mac_address_str).unwrap();
 
         MagicPacketSender::send_magic_packet(&mac);
 
